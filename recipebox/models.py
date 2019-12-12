@@ -29,6 +29,7 @@ class Recipe(models.Model):
     description = models.CharField(max_length=100)
     time_required = models.CharField(max_length=50)
     instructions = models.TextField()
+    is_favorite = models.BooleanField(default=False)
 
     def __str__(self):
         return f"{self.title} - {self.author.name}"

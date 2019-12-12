@@ -10,4 +10,11 @@
 
 <br />
 
+<h2>Your Favorites by This guy</h2>
+{% for recipe in recipes %}
+    {% if recipe.is_favorite%}
+        <h2><a href="/recipe/{{ recipe.id }}">{{ recipe.title }}</a> by {{recipe.author.name}}</h2>
+    {% endif %}
+{% endfor %}
+
 <a href="/">Get out of the kitchen</a>

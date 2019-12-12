@@ -7,8 +7,6 @@ from django.contrib.auth.decorators import login_required
 def index(request):
     html = "index.html"
     recipes = Recipe.objects.all()
-
-
     return render(request, html, {'data': recipes})
 
 def author(request, author_id):
@@ -19,10 +17,9 @@ def author(request, author_id):
     return render(request, html, {"data": author, 'recipes': recipes})
 
 def recipe(request, recipe_id):
-    html = 'generic_form.html'
-    recipe = Recipe.objects.filter(id=recipe_id).first()
-
-    return render(request, html, {"data": recipe})
+    html = 'recipe.html'
+    recipe = Recipe.objects.get(id=recipe_id)
+    return render(request, html, {'recipe': recipe})
 
 
 def authoraddview(request):
@@ -85,5 +82,46 @@ def logout_view(request):
     logout(request)
     return HttpResponseRedirect(reverse('homepage'))
 
+@login_required
+def favorite(request, id):
+    if request.method == 'GET':
+        user = request.user
+        recipe = Recipe.objects.get(id=id)
 
+        recipe.is_favorite = not recipe.is_favorite
+        recipe.save()
 
+        return HttpResponseRedirect(f'/recipe/{id}')
+
+def editrecipe(request, id):
+    user = request.user
+    html = 'generic_form.html'
+    recipe = Recipe.objects.get(id=id)
+    if request.method == 'GET':
+        if user == recipe.author.user or user.is_staff:
+            form = RecipeAddForm(initial={
+                'title': recipe.title,
+                'description': recipe.description,
+                'time_required': recipe.time_required,
+                'instructions': recipe.instructions,
+                'author': recipe.author
+            })
+            return render(request, html, {'form': form})
+
+    elif request.method == 'POST':
+        html = 'recipe.html'
+        form = RecipeAddForm(request.POST)
+        if (user == recipe.author.user or user.is_staff) and form.is_valid():
+            data = form.cleaned_data
+            recipe.title = data['title']
+            recipe.description = data['description']
+            recipe.time_required = data['time_required']
+            recipe.instructions = data['instructions']
+            recipe.author = data['author']
+
+            recipe.save()
+
+            return render(request, html, {'recipe': recipe})
+        else:
+            form = RecipeForm(request.POST)
+            return render(request, page, {'form': form})      

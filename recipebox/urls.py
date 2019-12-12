@@ -18,6 +18,8 @@ from django.urls import path
 from recipebox import views
 from recipebox.models import Author, Recipe
 
+from recipebox.views import editrecipe, favorite
+
 admin.site.register(Author)
 admin.site.register(Recipe)
 
@@ -30,9 +32,6 @@ urlpatterns = [
     path('authoradd/', views.authoraddview, name='authoradd'),
     path('login/', views.login_view, name='login'),
     path('logout', views.logout_view, name='logout'),
+    path('editrecipe/<id>', editrecipe),
+    path('favorite/<id>', favorite)
 ]
-
-'''
- if settings.DEBUG
-    urlpatterns += static
-'''

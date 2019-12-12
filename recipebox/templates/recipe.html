@@ -1,5 +1,26 @@
-<h1>{{data.title}}</h1>
-<h3>by {{data.author}}</h3>
-<h2>{{data.description}} </h2>
-<p>{{data.instructions}}</p>
-<a href="/">Back to the Menu</a>
+<h1>{{recipe.title}}</h1>
+
+<h3>by {{recipe.author}}</h3>
+<h2>{{recipe.description}} </h2>
+<p>{{recipe.instructions}}</p>
+<p>{{recipe.time_required}}</p>
+
+<a href="/"><button>Back to the Menu</button></a>
+
+<a href="/editrecipe/{{recipe.id}}"><button>Edit Recipe</button></a> 
+
+{% if request.user.is_authenticated %}
+
+    <h1> Is this your Favorite? {{ recipe.is_favorite  }}</h1>
+
+     {% if recipe.is_favorite %}
+        <form action="/favorite/{{recipe.id}}">
+            <button type="submit">Unfavorite....but Who Does that?</button>
+        </form>
+    {% else %}
+        <form action="/favorite/{{recipe.id}}">
+            <button type="submit">Favorite</button>
+        </form>
+    {% endif %}
+
+{% endif %}

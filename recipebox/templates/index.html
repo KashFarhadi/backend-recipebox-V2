@@ -8,3 +8,17 @@ hey {{ user.username }}
         <li><a href="/recipe/{{ recipe.id }}/">{{ recipe.title }}</a>, by <a href="/author/{{ recipe.author.id }}/">{{ recipe.author }}</a></li>
     {% endfor %}
 </ul>
+
+
+{% if request.user.is_authenticated %}
+    <> Your Saved Favorites <> </p>
+    {% for recipe in data %}
+        {% if recipe.is_favorite%}
+        <p><a href="/recipe/{{ recipe.id }}">{{ recipe.title }}</a> by {{recipe.author.name}}</p>
+        {% endif %}
+    {% endfor %}
+{% endif %}
+
+
+<p><a href="/login"><button>Login</button></a></p>
+<p><a href="/logout"><button>Logout</button></a></p>
