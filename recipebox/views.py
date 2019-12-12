@@ -80,7 +80,7 @@ def login_view(request):
 
 def logout_view(request):
     logout(request)
-    return HttpResponseRedirect(reverse('homepage'))
+    return HttpResponseRedirect('/')
 
 @login_required
 def favorite(request, id):

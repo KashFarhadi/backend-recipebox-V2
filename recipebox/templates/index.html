@@ -1,6 +1,9 @@
 <h1>Good Eats</h1>
-
-hey {{ user.username }}
+{% if request.user.is_authenticated %}
+    hey {{ user.username }}, welcome back
+{% else %}
+    Bro, why don't you login, You can't Favorite recipes otherwise
+{% endif %}
 
 
 <ul>
