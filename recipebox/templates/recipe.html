@@ -7,20 +7,19 @@
 
 <a href="/"><button>Back to the Menu</button></a>
 
-<a href="/editrecipe/{{recipe.id}}"><button>Edit Recipe</button></a> 
+<a href="/editrecipe/{{recipe.id}}/"><button>Edit Recipe</button></a> 
 
 {% if request.user.is_authenticated %}
 
     <h1> Is this your Favorite? {{ recipe.is_favorite  }}</h1>
-
-     {% if recipe.is_favorite %}
-        <form action="/favorite/{{recipe.id}}">
-            <button type="submit">Unfavorite....but Who Does that?</button>
-        </form>
+    {% if recipe not in user.author.favorite.all %}
+        <a href="/favorite/{{recipe.id}}/">
+            <button>Favorite....</button>
+        </a>
     {% else %}
-        <form action="/favorite/{{recipe.id}}">
-            <button type="submit">Favorite</button>
-        </form>
+        <a href="/unfavorite/{{recipe.id}}/">
+            <button>unfavorite</button>
+        </a>
     {% endif %}
 
 {% endif %}
