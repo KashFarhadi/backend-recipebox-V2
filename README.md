@@ -2,7 +2,7 @@
 
 
 # backend-recipebox-V2
-Here we add editing and favorites recipes to our previous recipebox assessment. For this project we used an external codebase to implement these new features to replicate the experience of working on code you didn't built. Consulting the creator, fundamentally changing the code and refactoring were not allowed.
+Here we add editing and favorites recipes to our previous recipebox assessment. For this project we used an external codebase to implement these new features to replicate the experience of working on code you didn't build. Consulting the creator, fundamentally changing the code and refactoring were not allowed.
 
 
 [Original Codebase by Chris Joy](https://github.com/cmjoy136/recipebox)
